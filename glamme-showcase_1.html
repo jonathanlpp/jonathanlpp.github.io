@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Glam.me — O app de beleza que sua cliente vai amar</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --ink:#0E0A07; --ink2:#1A1208; --ink3:#261A10;
+  --rose:#D4998A; --rose-d:#B87A6A; --rose-l:#EDD5CC;
+  --champ:#E8D5C0; --off:#F8F3EE; --muted:#8A7060;
+  --border:#2E2018; --border-l:#E0D4C8;
+}
+body{background:var(--ink);color:var(--off);font-family:'Outfit',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--ink)}::-webkit-scrollbar-thumb{background:var(--rose-d)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:18px 52px;transition:background .4s}
+nav.scrolled{background:rgba(14,10,7,.95);backdrop-filter:blur(20px);border-bottom:.5px solid var(--border)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;font-style:italic;color:var(--off);text-decoration:none}
+.nav-logo span{color:var(--rose)}
+.nav-r{display:flex;gap:28px;align-items:center}
+.nav-link{font-size:11px;color:rgba(248,243,238,.4);text-decoration:none;letter-spacing:.08em;transition:color .2s}
+.nav-link:hover{color:var(--off)}
+.nav-cta{background:var(--rose);color:var(--ink);padding:10px 24px;border-radius:2px;font-size:11px;font-weight:600;letter-spacing:.1em;text-decoration:none}
+
+/* ═══════════════════════════════════════════
+   HERO — 5 PHONES CENTRALIZADOS, GRANDES
+═══════════════════════════════════════════ */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 40px 60px;position:relative;overflow:hidden;text-align:center}
+.hero-glow{position:absolute;width:800px;height:500px;border-radius:50%;background:radial-gradient(ellipse,rgba(212,153,138,.12) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.hero-tag{font-size:9px;letter-spacing:.22em;color:var(--rose);font-weight:500;margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:10px}
+.hero-tag::before,.hero-tag::after{content:'';width:24px;height:.5px;background:var(--rose);opacity:.6}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,5.5vw,80px);font-weight:600;line-height:1.06;letter-spacing:-.02em;margin-bottom:16px}
+.hero-h1 em{font-style:italic;color:var(--rose)}
+.hero-sub{font-size:15px;color:rgba(248,243,238,.45);max-width:520px;margin:0 auto 56px;line-height:1.7;font-weight:300}
+
+/* PHONES HERO */
+.hero-phones{display:flex;align-items:flex-end;justify-content:center;gap:12px;width:100%;max-width:1100px;margin:0 auto;position:relative}
+.hero-phones::after{content:'';position:absolute;bottom:-40px;left:10%;right:10%;height:60px;background:radial-gradient(ellipse at center,rgba(212,153,138,.15) 0%,transparent 70%);pointer-events:none}
+
+/* phone genérico */
+.ph{border-radius:32px;overflow:hidden;border:1.5px solid rgba(212,153,138,.2);flex-shrink:0;box-shadow:0 32px 80px rgba(0,0,0,.7),0 4px 16px rgba(0,0,0,.4);transition:transform .4s ease}
+.ph:hover{transform:translateY(-8px) scale(1.02)}
+.ph.center{transform:translateY(-20px);z-index:2;box-shadow:0 48px 100px rgba(0,0,0,.8),0 4px 24px rgba(212,153,138,.15)}
+.ph.center:hover{transform:translateY(-28px) scale(1.02)}
+.ph.side{width:160px}
+.ph.main{width:200px}
+.ph.center{width:215px}
+.ph-notch{height:8px;background:#000;display:flex;align-items:center;justify-content:center}
+.ph-notch-bar{width:48px;height:5px;background:#111;border-radius:0 0 7px 7px}
+
+/* TELA 1 — Login */
+.s1{background:#fff}
+.s1-top{background:var(--off);padding:20px 16px 16px;text-align:center}
+.s1-logo{width:44px;height:44px;border-radius:14px;background:var(--ink);margin:0 auto 8px;display:flex;align-items:center;justify-content:center}
+.s1-logo i{font-size:22px;color:var(--rose)}
+.s1-brand{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;font-weight:600;color:var(--ink)}
+.s1-brand span{color:var(--rose)}
+.s1-tagline{font-size:8px;color:var(--muted);letter-spacing:.1em;margin-top:2px}
+.s1-body{background:#fff;padding:16px 16px}
+.s1-hello{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--ink);margin-bottom:14px;font-style:italic}
+.s1-inp{width:100%;background:var(--off);border:.5px solid var(--border-l);border-radius:8px;padding:8px 10px;font-size:10px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.s1-inp i{font-size:13px;color:var(--border-l)}
+.s1-forgot{text-align:right;font-size:8px;color:var(--rose);margin-bottom:12px}
+.s1-btn{width:100%;background:var(--ink);color:var(--off);border-radius:8px;padding:11px;font-size:10px;font-weight:600;letter-spacing:.1em;text-align:center;margin-bottom:12px}
+.s1-sep{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.s1-sep-line{flex:1;height:.5px;background:var(--border-l)}
+.s1-sep span{font-size:8px;color:var(--border-l)}
+.s1-social{display:flex;gap:6px}
+.s1-soc{flex:1;border:.5px solid var(--border-l);border-radius:8px;padding:8px 4px;font-size:9px;color:var(--muted);text-align:center;display:flex;align-items:center;justify-content:center;gap:4px}
+.s1-soc i{font-size:13px}
+.s1-new{text-align:center;font-size:8px;color:var(--muted);margin-top:10px}
+.s1-new span{color:var(--rose);font-weight:500}
+
+/* TELA 2 — Home */
+.s2{background:#fff}
+.s2-head{background:var(--off);padding:14px 14px 10px}
+.s2-toprow{display:flex;justify-content:space-between;align-items:flex-start}
+.s2-greet{font-size:7px;color:var(--rose);letter-spacing:.1em;margin-bottom:2px}
+.s2-name{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;font-style:italic;color:var(--ink)}
+.s2-av{width:28px;height:28px;border-radius:50%;background:var(--rose-l);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--ink)}
+.s2-search{background:#fff;border:.5px solid var(--border-l);border-radius:20px;padding:7px 12px;font-size:9px;color:var(--border-l);display:flex;align-items:center;gap:6px;margin-top:8px}
+.s2-banner{background:var(--ink);border-radius:12px;padding:12px 14px;margin:10px 14px 0}
+.s2-b-tag{font-size:7px;color:var(--rose);letter-spacing:.1em;margin-bottom:3px}
+.s2-b-title{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--off)}
+.s2-b-cta{font-size:7px;color:rgba(248,243,238,.5);margin-top:5px}
+.s2-cats{padding:10px 14px 0}
+.s2-cat-lbl{font-size:7px;letter-spacing:.12em;color:var(--rose);margin-bottom:7px}
+.s2-cat-row{display:flex;gap:5px}
+.s2-cat{flex:1;background:var(--off);border:.5px solid var(--border-l);border-radius:9px;padding:8px 4px;text-align:center}
+.s2-cat.a{background:var(--ink);border-color:var(--ink)}
+.s2-cat i{font-size:14px;color:var(--muted);display:block}
+.s2-cat.a i{color:var(--rose)}
+.s2-cat span{font-size:7px;color:var(--muted);display:block;margin-top:2px}
+.s2-cat.a span{color:rgba(248,243,238,.7)}
+.s2-cards{padding:10px 14px}
+.s2-card-lbl{font-size:7px;letter-spacing:.12em;color:var(--rose);margin-bottom:7px}
+.s2-card{background:var(--off);border:.5px solid var(--border-l);border-radius:9px;padding:8px 10px;margin-bottom:5px;display:flex;align-items:center;gap:7px}
+.s2-card-ico{width:28px;height:28px;border-radius:8px;background:var(--rose-l);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.s2-card-ico i{font-size:13px;color:var(--rose-d)}
+.s2-card-name{font-size:9px;font-weight:500;color:var(--ink)}
+.s2-card-sub{font-size:7px;color:var(--muted);margin-top:1px}
+.s2-card-price{margin-left:auto;font-size:10px;font-weight:600;color:var(--rose-d)}
+.s2-nav{background:#fff;border-top:.5px solid var(--border-l);padding:8px 14px;display:flex;justify-content:space-around}
+.s2-navi{display:flex;flex-direction:column;align-items:center;gap:2px}
+.s2-navi i{font-size:15px;color:var(--border-l)}
+.s2-navi.a i{color:var(--rose)}
+.s2-navi span{font-size:6px;color:var(--muted)}
+.s2-navi.a span{color:var(--rose)}
+
+/* TELA 3 — Agendamento (CENTER) */
+.s3{background:#fff}
+.s3-head{background:var(--off);padding:14px 16px 12px}
+.s3-toprow{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.s3-back{width:26px;height:26px;border-radius:8px;background:#fff;border:.5px solid var(--border-l);display:flex;align-items:center;justify-content:center}
+.s3-back i{font-size:13px;color:var(--muted)}
+.s3-title{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;font-style:italic;color:var(--ink)}
+.s3-prof{background:#fff;border:.5px solid var(--border-l);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.s3-pav{width:34px;height:34px;border-radius:50%;background:var(--rose-l);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--rose-d);flex-shrink:0}
+.s3-pname{font-size:10px;font-weight:500;color:var(--ink)}
+.s3-psub{font-size:7px;color:var(--muted);margin-top:1px}
+.s3-pbadge{margin-left:auto;font-size:7px;color:var(--rose-d);background:rgba(212,153,138,.12);padding:3px 7px;border-radius:10px}
+.s3-body{background:#fff;padding:12px 16px}
+.s3-lbl{font-size:7px;letter-spacing:.12em;color:var(--rose);margin-bottom:7px}
+.s3-days{display:flex;gap:4px;margin-bottom:12px}
+.s3-day{flex:1;text-align:center;border:.5px solid var(--border-l);border-radius:8px;padding:6px 2px;background:var(--off)}
+.s3-day.s{background:var(--rose);border-color:var(--rose)}
+.s3-day .dn{font-size:6px;color:var(--muted)}
+.s3-day.s .dn{color:rgba(248,243,238,.8)}
+.s3-day .dd{font-size:12px;font-weight:600;color:var(--ink)}
+.s3-day.s .dd{color:#fff}
+.s3-times{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:12px}
+.s3-t{text-align:center;padding:7px 2px;border-radius:8px;border:.5px solid var(--border-l);font-size:9px;color:var(--ink);background:var(--off)}
+.s3-t.s{background:var(--rose);border-color:var(--rose);color:#fff;font-weight:600}
+.s3-t.off{color:var(--border-l);background:rgba(248,243,238,.5)}
+.s3-price{display:flex;justify-content:space-between;background:var(--off);border-radius:8px;padding:9px 12px;margin-bottom:12px}
+.s3-price-lbl{font-size:9px;color:var(--muted)}
+.s3-price-val{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--rose-d)}
+.s3-btn{width:100%;background:var(--ink);color:var(--off);border-radius:10px;padding:12px;font-size:10px;font-weight:600;letter-spacing:.08em;text-align:center}
+.s3-nav{background:#fff;border-top:.5px solid var(--border-l);padding:8px 14px;display:flex;justify-content:space-around}
+
+/* TELA 4 — IA Try-On */
+.s4{background:var(--ink)}
+.s4-head{background:var(--ink2);padding:14px 14px 10px;border-bottom:.5px solid var(--border)}
+.s4-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(212,153,138,.12);border:.5px solid rgba(212,153,138,.3);border-radius:20px;padding:3px 8px;margin-bottom:6px}
+.s4-badge i{font-size:10px;color:var(--rose)}
+.s4-badge span{font-size:7px;color:var(--rose);font-weight:600;letter-spacing:.1em}
+.s4-title{font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:var(--off)}
+.s4-sub{font-size:7px;color:rgba(248,243,238,.4);margin-top:2px}
+.s4-cam{background:var(--ink3);aspect-ratio:3/4;max-height:132px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.s4-face-ring{width:64px;height:64px;border-radius:50%;border:1.5px dashed rgba(212,153,138,.5);display:flex;align-items:center;justify-content:center}
+.s4-face-ring i{font-size:28px;color:rgba(212,153,138,.3)}
+.s4-cam-lbl{font-size:7px;color:rgba(248,243,238,.25);margin-top:6px}
+.s4-corner{position:absolute;width:14px;height:14px;border-color:var(--rose);border-style:solid;opacity:.7}
+.s4-corner.tl{top:8px;left:8px;border-width:1.5px 0 0 1.5px}
+.s4-corner.tr{top:8px;right:8px;border-width:1.5px 1.5px 0 0}
+.s4-corner.bl{bottom:8px;left:8px;border-width:0 0 1.5px 1.5px}
+.s4-corner.br{bottom:8px;right:8px;border-width:0 1.5px 1.5px 0}
+.s4-body{background:var(--ink2);padding:10px 14px}
+.s4-opt-lbl{font-size:7px;letter-spacing:.12em;color:var(--rose);margin-bottom:7px}
+.s4-styles{display:flex;gap:5px;margin-bottom:10px}
+.s4-style{flex:1;border:.5px solid var(--border);border-radius:8px;padding:7px 3px;text-align:center;background:var(--ink3)}
+.s4-style.a{border-color:rgba(212,153,138,.5);background:rgba(212,153,138,.08)}
+.s4-style-bar{height:5px;border-radius:3px;margin:0 auto 4px;width:70%}
+.s4-style span{font-size:7px;color:rgba(248,243,238,.4)}
+.s4-style.a span{color:var(--rose)}
+.s4-btn{width:100%;background:var(--rose);color:var(--ink);border-radius:8px;padding:10px;font-size:9px;font-weight:600;letter-spacing:.08em;text-align:center}
+.s4-nav{background:var(--ink2);border-top:.5px solid var(--border);padding:8px 14px;display:flex;justify-content:space-around}
+.s4-navi{display:flex;flex-direction:column;align-items:center;gap:2px}
+.s4-navi i{font-size:15px;color:var(--border)}
+.s4-navi.a i{color:var(--rose)}
+.s4-navi span{font-size:6px;color:rgba(248,243,238,.25)}
+.s4-navi.a span{color:var(--rose)}
+
+/* TELA 5 — Perfil */
+.s5{background:#fff}
+.s5-head{background:var(--off);padding:20px 16px 16px;text-align:center}
+.s5-av{width:52px;height:52px;border-radius:50%;background:var(--rose-l);margin:0 auto 8px;border:2px solid var(--rose-d);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:var(--rose-d)}
+.s5-name{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;font-style:italic;color:var(--ink)}
+.s5-email{font-size:8px;color:var(--muted);margin-top:2px}
+.s5-stats{display:flex;border-top:.5px solid var(--border-l);background:#fff}
+.s5-stat{flex:1;padding:10px 4px;text-align:center;border-right:.5px solid var(--border-l)}
+.s5-stat:last-child{border-right:none}
+.s5-stat-val{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--rose-d)}
+.s5-stat-lbl{font-size:7px;color:var(--muted);margin-top:2px}
+.s5-loyalty{background:var(--ink);border-radius:10px;margin:10px 14px 0;padding:12px 14px}
+.s5-ly-tag{font-size:7px;color:rgba(248,243,238,.4);letter-spacing:.1em;margin-bottom:3px}
+.s5-ly-pts{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--rose);line-height:1}
+.s5-ly-sub{font-size:7px;color:rgba(248,243,238,.3);margin-top:3px;margin-bottom:7px}
+.s5-ly-bar{height:3px;background:rgba(255,255,255,.1);border-radius:2px}
+.s5-ly-fill{height:100%;width:65%;background:var(--rose);border-radius:2px}
+.s5-menu{background:#fff;padding:8px 14px}
+.s5-mi{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:.5px solid var(--off)}
+.s5-mi:last-child{border-bottom:none}
+.s5-mi-ico{width:26px;height:26px;border-radius:7px;background:var(--off);display:flex;align-items:center;justify-content:center}
+.s5-mi-ico i{font-size:13px;color:var(--rose-d)}
+.s5-mi-lbl{flex:1;font-size:10px;color:var(--ink);font-weight:400}
+.s5-mi-arr i{font-size:12px;color:var(--border-l)}
+.s5-nav{background:#fff;border-top:.5px solid var(--border-l);padding:8px 14px;display:flex;justify-content:space-around}
+
+/* phone labels */
+.ph-label{text-align:center;font-size:10px;color:rgba(248,243,238,.35);letter-spacing:.08em;margin-bottom:10px;font-weight:400}
+
+/* float animation */
+@keyframes fl1{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes fl2{0%,100%{transform:translateY(-4px)}50%{transform:translateY(-14px)}}
+@keyframes fl3{0%,100%{transform:translateY(-20px)}50%{transform:translateY(-30px)}}
+.ph-wrap-1{animation:fl1 5s ease-in-out infinite}
+.ph-wrap-2{animation:fl2 5.5s ease-in-out infinite .5s}
+.ph-wrap-3{animation:fl3 5s ease-in-out infinite 1s}
+.ph-wrap-4{animation:fl2 5.5s ease-in-out infinite .3s}
+.ph-wrap-5{animation:fl1 5s ease-in-out infinite .8s}
+
+/* ═══════════════════════════════════════════
+   STRIP
+═══════════════════════════════════════════ */
+.strip{background:var(--rose);padding:13px 0;overflow:hidden}
+.strip-inner{display:flex;gap:36px;white-space:nowrap;animation:scr 20s linear infinite}
+.strip-item{font-size:10px;font-weight:600;letter-spacing:.14em;color:var(--ink);display:flex;align-items:center;gap:10px;flex-shrink:0}
+.strip-sep{opacity:.5}
+@keyframes scr{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ═══════════════════════════════════════════
+   SEÇÃO: TELAS EM DETALHE
+═══════════════════════════════════════════ */
+.screens-detail{padding:120px 40px;max-width:1300px;margin:0 auto}
+.sd-eyebrow{font-size:9px;letter-spacing:.22em;color:var(--rose);font-weight:500;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.sd-eyebrow::before{content:'';width:20px;height:.5px;background:var(--rose);opacity:.6}
+.sd-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,60px);font-weight:600;line-height:1.1;letter-spacing:-.01em;margin-bottom:80px}
+.sd-h2 em{font-style:italic;color:var(--rose)}
+
+/* bloco individual: phone grande + texto */
+.sd-block{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-bottom:120px}
+.sd-block.rev{direction:rtl}
+.sd-block.rev>*{direction:ltr}
+.sd-phone-area{display:flex;justify-content:center;align-items:center}
+
+/* phone grande para detalhe */
+.ph-big{width:280px;border-radius:44px;overflow:hidden;border:2px solid rgba(212,153,138,.2);box-shadow:0 48px 100px rgba(0,0,0,.7),0 8px 24px rgba(0,0,0,.4)}
+.ph-big-notch{height:12px;background:#000;display:flex;align-items:center;justify-content:center}
+.ph-big-notch-bar{width:64px;height:7px;background:#111;border-radius:0 0 9px 9px}
+
+/* variante grande — tela home */
+.bg1-head{background:var(--off);padding:18px 18px 14px}
+.bg1-toprow{display:flex;justify-content:space-between;align-items:flex-start}
+.bg1-greet{font-size:9px;color:var(--rose);letter-spacing:.1em;margin-bottom:2px}
+.bg1-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;font-style:italic;color:var(--ink)}
+.bg1-av{width:36px;height:36px;border-radius:50%;background:var(--rose-l);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--rose-d)}
+.bg1-search{background:#fff;border:.5px solid var(--border-l);border-radius:24px;padding:9px 14px;font-size:10px;color:var(--border-l);display:flex;align-items:center;gap:6px;margin-top:10px}
+.bg1-banner{background:var(--ink);border-radius:14px;padding:16px 18px;margin:12px 18px 0}
+.bg1-b-tag{font-size:8px;color:var(--rose);letter-spacing:.1em;margin-bottom:4px}
+.bg1-b-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--off);margin-bottom:4px}
+.bg1-b-cta{font-size:8px;color:rgba(248,243,238,.5)}
+.bg1-cats{padding:14px 18px 0}
+.bg1-cat-lbl{font-size:8px;letter-spacing:.12em;color:var(--rose);margin-bottom:9px}
+.bg1-cats-row{display:flex;gap:6px}
+.bg1-cat{flex:1;background:var(--off);border:.5px solid var(--border-l);border-radius:10px;padding:10px 4px;text-align:center}
+.bg1-cat.a{background:var(--ink);border-color:var(--ink)}
+.bg1-cat i{font-size:18px;color:var(--muted);display:block}
+.bg1-cat.a i{color:var(--rose)}
+.bg1-cat span{font-size:8px;color:var(--muted);display:block;margin-top:3px}
+.bg1-cat.a span{color:rgba(248,243,238,.7)}
+.bg1-cards{padding:12px 18px}
+.bg1-card-lbl{font-size:8px;letter-spacing:.12em;color:var(--rose);margin-bottom:9px}
+.bg1-card{background:var(--off);border:.5px solid var(--border-l);border-radius:11px;padding:10px 12px;margin-bottom:7px;display:flex;align-items:center;gap:9px}
+.bg1-card-ico{width:36px;height:36px;border-radius:10px;background:var(--rose-l);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.bg1-card-ico i{font-size:18px;color:var(--rose-d)}
+.bg1-card-name{font-size:11px;font-weight:500;color:var(--ink)}
+.bg1-card-sub{font-size:8px;color:var(--muted);margin-top:2px}
+.bg1-card-price{margin-left:auto;font-size:13px;font-weight:600;color:var(--rose-d)}
+.bg1-nav{background:#fff;border-top:.5px solid var(--border-l);padding:11px 18px;display:flex;justify-content:space-around}
+.bg1-navi{display:flex;flex-direction:column;align-items:center;gap:3px}
+.bg1-navi i{font-size:18px;color:var(--border-l)}
+.bg1-navi.a i{color:var(--rose)}
+.bg1-navi span{font-size:7px;color:var(--muted)}
+.bg1-navi.a span{color:var(--rose)}
+
+/* variante grande — agendamento */
+.bg2-head{background:var(--off);padding:16px 18px 14px}
+.bg2-toprow{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.bg2-back{width:30px;height:30px;border-radius:9px;background:#fff;border:.5px solid var(--border-l);display:flex;align-items:center;justify-content:center}
+.bg2-back i{font-size:15px;color:var(--muted)}
+.bg2-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;font-style:italic;color:var(--ink)}
+.bg2-prof{background:#fff;border:.5px solid var(--border-l);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:11px;margin-bottom:14px}
+.bg2-pav{width:40px;height:40px;border-radius:50%;background:var(--rose-l);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--rose-d);flex-shrink:0}
+.bg2-pname{font-size:12px;font-weight:500;color:var(--ink)}
+.bg2-psub{font-size:8px;color:var(--muted);margin-top:2px}
+.bg2-pbadge{margin-left:auto;font-size:8px;color:var(--rose-d);background:rgba(212,153,138,.12);padding:4px 9px;border-radius:10px}
+.bg2-body{background:#fff;padding:14px 18px}
+.bg2-lbl{font-size:8px;letter-spacing:.12em;color:var(--rose);margin-bottom:9px}
+.bg2-days{display:flex;gap:5px;margin-bottom:14px}
+.bg2-day{flex:1;text-align:center;border:.5px solid var(--border-l);border-radius:9px;padding:8px 2px;background:var(--off)}
+.bg2-day.s{background:var(--rose);border-color:var(--rose)}
+.bg2-day .dn{font-size:7px;color:var(--muted)}
+.bg2-day.s .dn{color:rgba(248,243,238,.8)}
+.bg2-day .dd{font-size:14px;font-weight:600;color:var(--ink)}
+.bg2-day.s .dd{color:#fff}
+.bg2-times{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:14px}
+.bg2-t{text-align:center;padding:9px 2px;border-radius:9px;border:.5px solid var(--border-l);font-size:10px;color:var(--ink);background:var(--off)}
+.bg2-t.s{background:var(--rose);border-color:var(--rose);color:#fff;font-weight:600}
+.bg2-t.off{color:var(--border-l)}
+.bg2-price{display:flex;justify-content:space-between;background:var(--off);border-radius:10px;padding:11px 14px;margin-bottom:14px}
+.bg2-price-lbl{font-size:10px;color:var(--muted)}
+.bg2-price-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--rose-d)}
+.bg2-btn{width:100%;background:var(--ink);color:var(--off);border-radius:12px;padding:14px;font-size:11px;font-weight:600;letter-spacing:.08em;text-align:center}
+.bg2-nav{background:#fff;border-top:.5px solid var(--border-l);padding:11px 18px;display:flex;justify-content:space-around}
+
+/* variante grande — IA */
+.bg3{background:var(--ink)}
+.bg3-head{background:var(--ink2);padding:14px 18px 12px;border-bottom:.5px solid var(--border)}
+.bg3-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(212,153,138,.1);border:.5px solid rgba(212,153,138,.3);border-radius:20px;padding:4px 10px;margin-bottom:7px}
+.bg3-badge i{font-size:12px;color:var(--rose)}
+.bg3-badge span{font-size:8px;color:var(--rose);font-weight:600;letter-spacing:.12em}
+.bg3-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--off)}
+.bg3-sub{font-size:8px;color:rgba(248,243,238,.35);margin-top:3px}
+.bg3-cam{background:var(--ink3);aspect-ratio:1/1;max-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;gap:8px}
+.bg3-face{width:80px;height:80px;border-radius:50%;border:2px dashed rgba(212,153,138,.4);display:flex;align-items:center;justify-content:center}
+.bg3-face i{font-size:36px;color:rgba(212,153,138,.25)}
+.bg3-cam-lbl{font-size:8px;color:rgba(248,243,238,.2)}
+.bg3-corner{position:absolute;width:18px;height:18px;border-color:var(--rose);border-style:solid;opacity:.6}
+.bg3-corner.tl{top:10px;left:10px;border-width:2px 0 0 2px}
+.bg3-corner.tr{top:10px;right:10px;border-width:2px 2px 0 0}
+.bg3-corner.bl{bottom:10px;left:10px;border-width:0 0 2px 2px}
+.bg3-corner.br{bottom:10px;right:10px;border-width:0 2px 2px 0}
+.bg3-body{background:var(--ink2);padding:14px 18px}
+.bg3-opt-lbl{font-size:8px;letter-spacing:.12em;color:var(--rose);margin-bottom:9px}
+.bg3-styles{display:flex;gap:6px;margin-bottom:12px}
+.bg3-style{flex:1;border:.5px solid var(--border);border-radius:9px;padding:9px 4px;text-align:center;background:var(--ink3)}
+.bg3-style.a{border-color:rgba(212,153,138,.5);background:rgba(212,153,138,.08)}
+.bg3-style-bar{height:6px;border-radius:3px;margin:0 auto 5px;width:72%}
+.bg3-style span{font-size:8px;color:rgba(248,243,238,.35)}
+.bg3-style.a span{color:var(--rose)}
+.bg3-btn{width:100%;background:var(--rose);color:var(--ink);border-radius:10px;padding:13px;font-size:11px;font-weight:600;letter-spacing:.08em;text-align:center}
+.bg3-nav{background:var(--ink2);border-top:.5px solid var(--border);padding:11px 18px;display:flex;justify-content:space-around}
+.bg3-navi{display:flex;flex-direction:column;align-items:center;gap:3px}
+.bg3-navi i{font-size:18px;color:var(--border)}
+.bg3-navi.a i{color:var(--rose)}
+.bg3-navi span{font-size:7px;color:rgba(248,243,238,.25)}
+.bg3-navi.a span{color:var(--rose)}
+
+/* variante grande — perfil */
+.bg4{background:#fff}
+.bg4-head{background:var(--off);padding:20px 18px 16px;text-align:center}
+.bg4-av{width:60px;height:60px;border-radius:50%;background:var(--rose-l);margin:0 auto 10px;border:2.5px solid var(--rose-d);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:600;color:var(--rose-d)}
+.bg4-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;font-style:italic;color:var(--ink)}
+.bg4-email{font-size:9px;color:var(--muted);margin-top:3px}
+.bg4-stats{display:flex;background:#fff;border-top:.5px solid var(--border-l)}
+.bg4-stat{flex:1;padding:12px 4px;text-align:center;border-right:.5px solid var(--border-l)}
+.bg4-stat:last-child{border-right:none}
+.bg4-stat-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--rose-d)}
+.bg4-stat-lbl{font-size:7px;color:var(--muted);margin-top:2px}
+.bg4-loyalty{background:var(--ink);border-radius:12px;margin:12px 18px 0;padding:14px 16px}
+.bg4-ly-tag{font-size:8px;color:rgba(248,243,238,.35);letter-spacing:.1em;margin-bottom:4px}
+.bg4-ly-pts{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--rose);line-height:1}
+.bg4-ly-sub{font-size:7px;color:rgba(248,243,238,.25);margin-top:3px;margin-bottom:9px}
+.bg4-ly-bar{height:4px;background:rgba(255,255,255,.1);border-radius:2px}
+.bg4-ly-fill{height:100%;width:65%;background:var(--rose);border-radius:2px}
+.bg4-menu{background:#fff;padding:10px 18px}
+.bg4-mi{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:.5px solid var(--off)}
+.bg4-mi:last-child{border-bottom:none}
+.bg4-mi-ico{width:32px;height:32px;border-radius:9px;background:var(--off);display:flex;align-items:center;justify-content:center}
+.bg4-mi-ico i{font-size:16px;color:var(--rose-d)}
+.bg4-mi-lbl{flex:1;font-size:11px;color:var(--ink)}
+.bg4-mi-arr i{font-size:14px;color:var(--border-l)}
+.bg4-nav{background:#fff;border-top:.5px solid var(--border-l);padding:11px 18px;display:flex;justify-content:space-around}
+
+/* TEXTO LATERAL */
+.sd-text{display:flex;flex-direction:column;gap:24px}
+.sd-num{font-family:'Cormorant Garamond',serif;font-size:80px;font-weight:300;font-style:italic;color:rgba(212,153,138,.1);line-height:1;margin-bottom:-16px}
+.sd-screen-name{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3vw,44px);font-weight:600;line-height:1.1;color:var(--off)}
+.sd-screen-name em{font-style:italic;color:var(--rose)}
+.sd-desc{font-size:14px;color:rgba(248,243,238,.45);line-height:1.8;font-weight:300}
+.sd-features{display:flex;flex-direction:column;gap:12px}
+.sd-feat{display:flex;align-items:flex-start;gap:12px;font-size:13px;color:rgba(248,243,238,.55);line-height:1.5}
+.sd-feat-dot{width:22px;height:22px;border-radius:50%;border:.5px solid rgba(212,153,138,.4);background:rgba(212,153,138,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.sd-feat-dot i{font-size:11px;color:var(--rose)}
+.sd-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(212,153,138,.1);border:.5px solid rgba(212,153,138,.3);border-radius:2px;padding:6px 12px;font-size:9px;font-weight:600;letter-spacing:.1em;color:var(--rose);width:fit-content}
+
+/* ═══════════════════════════════════════════
+   SEÇÃO PROVA SOCIAL
+═══════════════════════════════════════════ */
+.proof-section{background:var(--ink2);padding:80px 52px;border-top:.5px solid var(--border);border-bottom:.5px solid var(--border)}
+.proof-inner{max-width:1100px;margin:0 auto;display:flex;gap:0;justify-content:center}
+.proof-stat{flex:1;text-align:center;padding:0 40px;border-right:.5px solid var(--border)}
+.proof-stat:last-child{border-right:none}
+.proof-val{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,64px);font-weight:600;color:var(--off);line-height:1}
+.proof-val span{color:var(--rose)}
+.proof-lbl{font-size:11px;color:rgba(248,243,238,.35);margin-top:8px;letter-spacing:.06em}
+
+/* ═══════════════════════════════════════════
+   CTA
+═══════════════════════════════════════════ */
+.cta{padding:140px 52px;text-align:center;position:relative;overflow:hidden}
+.cta-ring{position:absolute;border-radius:50%;border:.5px solid rgba(212,153,138,.06);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.cta-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,6vw,88px);font-weight:600;line-height:1.04;letter-spacing:-.02em;margin-bottom:24px;position:relative}
+.cta-h2 em{font-style:italic;color:var(--rose)}
+.cta-sub{font-size:15px;color:rgba(248,243,238,.4);max-width:420px;margin:0 auto 52px;line-height:1.75;font-weight:300;position:relative}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
+.btn-p{background:var(--rose);color:var(--ink);padding:16px 44px;border-radius:2px;font-size:12px;font-weight:600;letter-spacing:.1em;text-decoration:none}
+.btn-g{background:transparent;color:rgba(248,243,238,.45);padding:16px 32px;border-radius:2px;border:.5px solid var(--border);font-size:12px;letter-spacing:.08em;text-decoration:none}
+.cta-detail{margin-top:24px;font-size:10px;color:rgba(248,243,238,.2);letter-spacing:.1em;position:relative}
+
+/* FOOTER */
+footer{background:var(--ink2);border-top:.5px solid var(--border);padding:48px 52px 28px}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:40px;border-bottom:.5px solid var(--border)}
+.foot-logo{font-family:'Cormorant Garamond',serif;font-size:28px;font-style:italic;font-weight:600;color:var(--off);text-decoration:none}
+.foot-logo span{color:var(--rose)}
+.foot-tag{font-size:11px;color:rgba(248,243,238,.25);margin-top:6px;font-weight:300}
+.foot-links{display:flex;gap:48px}
+.foot-col-lbl{font-size:9px;letter-spacing:.16em;color:var(--rose);margin-bottom:16px;font-weight:500}
+.foot-link{display:block;font-size:12px;color:rgba(248,243,238,.3);margin-bottom:10px;text-decoration:none;transition:color .2s}
+.foot-link:hover{color:rgba(248,243,238,.7)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px}
+.foot-copy{font-size:10px;color:rgba(248,243,238,.2)}
+.foot-social{display:flex;gap:10px}
+.foot-soc{width:32px;height:32px;border:.5px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:border-color .2s}
+.foot-soc:hover{border-color:var(--rose)}
+.foot-soc i{font-size:15px;color:rgba(248,243,238,.3)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .8s,transform .8s}
+.rv.in{opacity:1;transform:translateY(0)}
+.rl{opacity:0;transform:translateX(-20px);transition:opacity .8s,transform .8s}
+.rl.in{opacity:1;transform:translateX(0)}
+.rr{opacity:0;transform:translateX(20px);transition:opacity .8s,transform .8s}
+.rr.in{opacity:1;transform:translateX(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+@media(max-width:900px){
+  nav{padding:14px 20px}.nav-r .nav-link{display:none}
+  .hero{padding:100px 20px 50px}
+  .hero-phones{gap:8px}
+  .ph.side{width:120px}.ph.main{width:150px}.ph.center{width:160px}
+  .screens-detail{padding:80px 20px}
+  .sd-block{grid-template-columns:1fr;gap:48px}.sd-block.rev{direction:ltr}
+  .ph-big{width:260px}
+  .proof-inner{flex-wrap:wrap}.proof-stat{flex:1 1 40%;border-right:none;border-bottom:.5px solid var(--border);padding:24px}
+  .proof-stat:last-child{border-bottom:none}
+  .foot-top{flex-direction:column;gap:36px}.foot-links{flex-direction:column;gap:24px}
+  .foot-bottom{flex-direction:column;gap:14px}
+  .cta{padding:100px 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">glam<span>.me</span></a>
+  <div class="nav-r">
+    <a href="#telas" class="nav-link">Telas</a>
+    <a href="#ia" class="nav-link">Provador IA</a>
+    <a href="#cta" class="nav-link">Baixar</a>
+    <a href="#cta" class="nav-cta">COMEÇAR GRÁTIS</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-tag rv">O APP DE BELEZA MAIS COMPLETO DO BRASIL</div>
+  <h1 class="hero-h1 rv d1">Agende sua lash<br/><em>em dois minutos.</em></h1>
+  <p class="hero-sub rv d2">Encontre a profissional ideal, veja o portfólio, escolha o horário e confirme — tudo dentro do app. Sem WhatsApp, sem espera.</p>
+
+  <!-- 5 PHONES -->
+  <div class="hero-phones rv d3">
+
+    <div>
+      <div class="ph-label">LOGIN</div>
+      <div class="ph-wrap-1"><div class="ph side ph-l1">
+        <div class="ph-notch"><div class="ph-notch-bar"></div></div>
+        <!-- TELA LOGIN -->
+        <div class="s1">
+          <div class="s1-top">
+            <div class="s1-logo"><i class="ti ti-sparkles"></i></div>
+            <div class="s1-brand">glam<span>.me</span></div>
+            <div class="s1-tagline">seu espaço de beleza</div>
+          </div>
+          <div class="s1-body">
+            <div class="s1-hello">Bem-vinda de volta</div>
+            <div class="s1-inp"><i class="ti ti-mail"></i><span>seu@email.com</span></div>
+            <div class="s1-inp"><i class="ti ti-lock"></i><span>••••••••</span></div>
+            <div class="s1-forgot">Esqueci minha senha</div>
+            <div class="s1-btn">ENTRAR</div>
+            <div class="s1-sep"><div class="s1-sep-line"></div><span>ou</span><div class="s1-sep-line"></div></div>
+            <div class="s1-social">
+              <div class="s1-soc"><i class="ti ti-brand-google"></i> Google</div>
+              <div class="s1-soc"><i class="ti ti-brand-apple"></i> Apple</div>
+            </div>
+            <div class="s1-new">Não tem conta? <span>Cadastre-se</span></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <div>
+      <div class="ph-label">HOME</div>
+      <div class="ph-wrap-2"><div class="ph main">
+        <div class="ph-notch"><div class="ph-notch-bar"></div></div>
+        <!-- TELA HOME -->
+        <div class="s2">
+          <div class="s2-head">
+            <div class="s2-toprow">
+              <div><div class="s2-greet">BOM DIA ✦</div><div class="s2-name">Ana Paula</div></div>
+              <div class="s2-av">AP</div>
+            </div>
+            <div class="s2-search"><i class="ti ti-search" style="font-size:11px"></i><span>buscar serviço...</span></div>
+          </div>
+          <div class="s2-banner"><div class="s2-b-tag">OFERTA DA SEMANA</div><div class="s2-b-title">Lash com 20% off</div><div class="s2-b-cta">Agendar agora →</div></div>
+          <div class="s2-cats">
+            <div class="s2-cat-lbl">CATEGORIAS</div>
+            <div class="s2-cat-row">
+              <div class="s2-cat a"><i class="ti ti-eye"></i><span>Lash</span></div>
+              <div class="s2-cat"><i class="ti ti-sparkles"></i><span>Sobrancelha</span></div>
+              <div class="s2-cat"><i class="ti ti-hand-finger"></i><span>Unhas</span></div>
+            </div>
+          </div>
+          <div class="s2-cards">
+            <div class="s2-card-lbl">EM DESTAQUE</div>
+            <div class="s2-card"><div class="s2-card-ico"><i class="ti ti-eye"></i></div><div><div class="s2-card-name">Volume Russo</div><div class="s2-card-sub">⭐ 4.9 · Camila S.</div></div><div class="s2-card-price">R$180</div></div>
+            <div class="s2-card"><div class="s2-card-ico"><i class="ti ti-sparkles"></i></div><div><div class="s2-card-name">Design Sobrancelha</div><div class="s2-card-sub">⭐ 4.8 · Letícia M.</div></div><div class="s2-card-price">R$70</div></div>
+          </div>
+          <div class="s2-nav">
+            <div class="s2-navi a"><i class="ti ti-home"></i><span>Início</span></div>
+            <div class="s2-navi"><i class="ti ti-search"></i><span>Buscar</span></div>
+            <div class="s2-navi"><i class="ti ti-calendar"></i><span>Agenda</span></div>
+            <div class="s2-navi"><i class="ti ti-user"></i><span>Perfil</span></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <div>
+      <div class="ph-label">AGENDAMENTO</div>
+      <div class="ph-wrap-3"><div class="ph center">
+        <div class="ph-notch"><div class="ph-notch-bar"></div></div>
+        <!-- TELA AGENDAMENTO -->
+        <div class="s3">
+          <div class="s3-head">
+            <div class="s3-toprow"><div class="s3-back"><i class="ti ti-arrow-left"></i></div><div class="s3-title">Agendar Horário</div></div>
+            <div class="s3-prof">
+              <div class="s3-pav">CS</div>
+              <div><div class="s3-pname">Camila Santos</div><div class="s3-psub">⭐ 4.9 · 312 atend.</div></div>
+              <div class="s3-pbadge">Top ✦</div>
+            </div>
+          </div>
+          <div class="s3-body">
+            <div class="s3-lbl">ESCOLHA O DIA</div>
+            <div class="s3-days">
+              <div class="s3-day"><div class="dn">TER</div><div class="dd">17</div></div>
+              <div class="s3-day s"><div class="dn">QUA</div><div class="dd">18</div></div>
+              <div class="s3-day"><div class="dn">QUI</div><div class="dd">19</div></div>
+              <div class="s3-day"><div class="dn">SEX</div><div class="dd">20</div></div>
+              <div class="s3-day"><div class="dn">SÁB</div><div class="dd">21</div></div>
+            </div>
+            <div class="s3-lbl">HORÁRIOS DISPONÍVEIS</div>
+            <div class="s3-times">
+              <div class="s3-t off">09:00</div><div class="s3-t">10:00</div><div class="s3-t s">11:00</div>
+              <div class="s3-t">13:00</div><div class="s3-t">14:30</div><div class="s3-t off">16:00</div>
+            </div>
+            <div class="s3-price"><div class="s3-price-lbl">Lash Volume Russo</div><div class="s3-price-val">R$ 180</div></div>
+            <div class="s3-btn">CONFIRMAR AGENDAMENTO</div>
+          </div>
+          <div class="s3-nav">
+            <div class="s2-navi"><i class="ti ti-home"></i><span>Início</span></div>
+            <div class="s2-navi a"><i class="ti ti-calendar"></i><span>Agenda</span></div>
+            <div class="s2-navi"><i class="ti ti-search"></i><span>Buscar</span></div>
+            <div class="s2-navi"><i class="ti ti-user"></i><span>Perfil</span></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <div>
+      <div class="ph-label">PROVADOR IA</div>
+      <div class="ph-wrap-4"><div class="ph main">
+        <div class="ph-notch"><div class="ph-notch-bar"></div></div>
+        <!-- TELA IA -->
+        <div class="s4">
+          <div class="s4-head">
+            <div class="s4-badge"><i class="ti ti-wand"></i><span>FUNCIONALIDADE IA</span></div>
+            <div class="s4-title">Experimente antes</div>
+            <div class="s4-sub">Veja como vai ficar em você</div>
+          </div>
+          <div class="s4-cam">
+            <div class="s4-corner tl"></div><div class="s4-corner tr"></div>
+            <div class="s4-corner bl"></div><div class="s4-corner br"></div>
+            <div class="s4-face-ring"><i class="ti ti-user-circle"></i></div>
+            <div class="s4-cam-lbl">Tire uma foto ou carregue</div>
+          </div>
+          <div class="s4-body">
+            <div class="s4-opt-lbl">ESTILO DO CÍLIO</div>
+            <div class="s4-styles">
+              <div class="s4-style a"><div class="s4-style-bar" style="background:var(--rose)"></div><span>Volume</span></div>
+              <div class="s4-style"><div class="s4-style-bar" style="background:var(--border)"></div><span>Natural</span></div>
+              <div class="s4-style"><div class="s4-style-bar" style="background:var(--border);height:3px"></div><span>Fio a fio</span></div>
+            </div>
+            <div class="s4-btn">APLICAR EFEITO IA</div>
+          </div>
+          <div class="s4-nav">
+            <div class="s4-navi"><i class="ti ti-home"></i><span>Início</span></div>
+            <div class="s4-navi"><i class="ti ti-calendar"></i><span>Agenda</span></div>
+            <div class="s4-navi a"><i class="ti ti-wand"></i><span>IA</span></div>
+            <div class="s4-navi"><i class="ti ti-user"></i><span>Perfil</span></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <div>
+      <div class="ph-label">PERFIL</div>
+      <div class="ph-wrap-5"><div class="ph side">
+        <div class="ph-notch"><div class="ph-notch-bar"></div></div>
+        <!-- TELA PERFIL -->
+        <div class="s5">
+          <div class="s5-head">
+            <div class="s5-av">AP</div>
+            <div class="s5-name">Ana Paula</div>
+            <div class="s5-email">anapaula@email.com</div>
+          </div>
+          <div class="s5-stats">
+            <div class="s5-stat"><div class="s5-stat-val">12</div><div class="s5-stat-lbl">Agend.</div></div>
+            <div class="s5-stat"><div class="s5-stat-val">4.9</div><div class="s5-stat-lbl">Avaliação</div></div>
+            <div class="s5-stat"><div class="s5-stat-val">650</div><div class="s5-stat-lbl">Pontos</div></div>
+          </div>
+          <div class="s5-loyalty" style="margin:8px 12px 0">
+            <div class="s5-ly-tag">FIDELIDADE</div>
+            <div class="s5-ly-pts">650 pts</div>
+            <div class="s5-ly-sub">Próximo: 1000 pts</div>
+            <div class="s5-ly-bar"><div class="s5-ly-fill"></div></div>
+          </div>
+          <div class="s5-menu">
+            <div class="s5-mi"><div class="s5-mi-ico"><i class="ti ti-calendar"></i></div><div class="s5-mi-lbl">Agendamentos</div><div class="s5-mi-arr"><i class="ti ti-chevron-right"></i></div></div>
+            <div class="s5-mi"><div class="s5-mi-ico"><i class="ti ti-heart"></i></div><div class="s5-mi-lbl">Favoritos</div><div class="s5-mi-arr"><i class="ti ti-chevron-right"></i></div></div>
+            <div class="s5-mi"><div class="s5-mi-ico"><i class="ti ti-star"></i></div><div class="s5-mi-lbl">Avaliações</div><div class="s5-mi-arr"><i class="ti ti-chevron-right"></i></div></div>
+            <div class="s5-mi"><div class="s5-mi-ico"><i class="ti ti-bell"></i></div><div class="s5-mi-lbl">Notificações</div><div class="s5-mi-arr"><i class="ti ti-chevron-right"></i></div></div>
+          </div>
+          <div class="s5-nav">
+            <div class="s2-navi"><i class="ti ti-home"></i><span>Início</span></div>
+            <div class="s2-navi"><i class="ti ti-calendar"></i><span>Agenda</span></div>
+            <div class="s2-navi"><i class="ti ti-search"></i><span>Buscar</span></div>
+            <div class="s2-navi a"><i class="ti ti-user"></i><span>Perfil</span></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+  </div><!-- /hero-phones -->
+</section>
+
+<!-- STRIP -->
+<div class="strip" aria-hidden="true">
+  <div class="strip-inner">
+    <div class="strip-item"><span class="strip-sep">✦</span>LASH VOLUME RUSSO</div>
+    <div class="strip-item"><span class="strip-sep">✦</span>FIO A FIO</div>
+    <div class="strip-item"><span class="strip-sep">✦</span>DESIGN DE SOBRANCELHA</div>
+    <div class="strip-item"><span class="strip-sep">✦</span>LIFTING DE CÍLIOS</div>
+    <div class="strip-item"><span class="strip-sep">✦</span>MICROPIGMENTAÇÃO</div>
+    <div class="strip-item"><span class="strip-sep">✦</span>NAIL ART</div>
+    <div class="strip-item"><span class="strip-sep">✦</span>PROVADOR DE IA</div>
+    <div class="strip-item"><span class="strip-sep">✦</span>LASH VOLUME RUSSO</div>
+    <div class="strip-item"><span class="strip-sep">✦</span>FIO A FIO</div>
+    <div class="strip-item"><span class="strip-sep">✦</span>DESIGN DE SOBRANCELHA</div>
+    <div class="strip-item"><span class="strip-sep">✦</span>LIFTING DE CÍLIOS</div>
+    <div class="strip-item"><span class="strip-sep">✦</span>MICROPIGMENTAÇÃO</div>
+    <div class="strip-item"><span class="strip-sep">✦</span>NAIL ART</div>
+    <div class="strip-item"><span class="strip-sep">✦</span>PROVADOR DE IA</div>
+  </div>
+</div>
+
+<!-- PROVA SOCIAL -->
+<div class="proof-section rv">
+  <div class="proof-inner">
+    <div class="proof-stat"><div class="proof-val">2<span>min</span></div><div class="proof-lbl">PARA AGENDAR DO ZERO</div></div>
+    <div class="proof-stat"><div class="proof-val">4.9<span>★</span></div><div class="proof-lbl">AVALIAÇÃO MÉDIA</div></div>
+    <div class="proof-stat"><div class="proof-val">98<span>%</span></div><div class="proof-lbl">DE CONFIRMAÇÕES</div></div>
+    <div class="proof-stat"><div class="proof-val">0<span>taxas</span></div><div class="proof-lbl">OCULTAS</div></div>
+  </div>
+</div>
+
+<!-- ══ TELAS EM DETALHE ══ -->
+<div class="screens-detail" id="telas">
+  <div class="sd-eyebrow rv">AS TELAS DO APP</div>
+  <h2 class="sd-h2 rv d1">Cada tela pensada<br/>para <em>encantar.</em></h2>
+
+  <!-- BLOCO 1: HOME -->
+  <div class="sd-block">
+    <div class="sd-phone-area rl">
+      <div class="ph-big">
+        <div class="ph-big-notch"><div class="ph-big-notch-bar"></div></div>
+        <div class="bg1-head">
+          <div class="bg1-toprow"><div><div class="bg1-greet">BOM DIA ✦</div><div class="bg1-name">Ana Paula</div></div><div class="bg1-av">AP</div></div>
+          <div class="bg1-search"><i class="ti ti-search" style="font-size:13px"></i><span>buscar serviço ou profissional...</span></div>
+        </div>
+        <div class="bg1-banner"><div class="bg1-b-tag">OFERTA DA SEMANA</div><div class="bg1-b-title">Volume Russo com 20% off</div><div class="bg1-b-cta">Agendar agora →</div></div>
+        <div class="bg1-cats">
+          <div class="bg1-cat-lbl">CATEGORIAS</div>
+          <div class="bg1-cats-row">
+            <div class="bg1-cat a"><i class="ti ti-eye"></i><span>Lash</span></div>
+            <div class="bg1-cat"><i class="ti ti-sparkles"></i><span>Sobrancelha</span></div>
+            <div class="bg1-cat"><i class="ti ti-hand-finger"></i><span>Unhas</span></div>
+            <div class="bg1-cat"><i class="ti ti-face-id"></i><span>Estética</span></div>
+          </div>
+        </div>
+        <div class="bg1-cards">
+          <div class="bg1-card-lbl">EM DESTAQUE HOJE</div>
+          <div class="bg1-card"><div class="bg1-card-ico"><i class="ti ti-eye"></i></div><div><div class="bg1-card-name">Lash Volume Russo</div><div class="bg1-card-sub">⭐ 4.9 · 2h · Camila Santos</div></div><div class="bg1-card-price">R$180</div></div>
+          <div class="bg1-card"><div class="bg1-card-ico"><i class="ti ti-sparkles"></i></div><div><div class="bg1-card-name">Design de Sobrancelha</div><div class="bg1-card-sub">⭐ 4.8 · 45min · Letícia M.</div></div><div class="bg1-card-price">R$70</div></div>
+          <div class="bg1-card"><div class="bg1-card-ico"><i class="ti ti-hand-finger"></i></div><div><div class="bg1-card-name">Nail Art Gel</div><div class="bg1-card-sub">⭐ 5.0 · 1h · Bruna F.</div></div><div class="bg1-card-price">R$110</div></div>
+        </div>
+        <div class="bg1-nav">
+          <div class="bg1-navi a"><i class="ti ti-home"></i><span>Início</span></div>
+          <div class="bg1-navi"><i class="ti ti-search"></i><span>Buscar</span></div>
+          <div class="bg1-navi"><i class="ti ti-calendar"></i><span>Agenda</span></div>
+          <div class="bg1-navi"><i class="ti ti-heart"></i><span>Favoritos</span></div>
+          <div class="bg1-navi"><i class="ti ti-user"></i><span>Perfil</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="sd-text rr">
+      <div class="sd-num">01</div>
+      <div class="sd-screen-name">Home — <em>tudo na palma da mão</em></div>
+      <p class="sd-desc">A tela principal apresenta os serviços em destaque, promoções ativas e categorias de forma limpa e intuitiva. A cliente encontra o que quer em segundos.</p>
+      <div class="sd-features">
+        <div class="sd-feat"><div class="sd-feat-dot"><i class="ti ti-check"></i></div>Banner de oferta em destaque com CTA direto</div>
+        <div class="sd-feat"><div class="sd-feat-dot"><i class="ti ti-check"></i></div>Categorias visuais para navegação rápida</div>
+        <div class="sd-feat"><div class="sd-feat-dot"><i class="ti ti-check"></i></div>Cards com avaliação, tempo e preço visíveis</div>
+        <div class="sd-feat"><div class="sd-feat-dot"><i class="ti ti-check"></i></div>Saudação personalizada por nome e horário do dia</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCO 2: AGENDAMENTO -->
+  <div class="sd-block rev">
+    <div class="sd-phone-area rr">
+      <div class="ph-big">
+        <div class="ph-big-notch"><div class="ph-big-notch-bar"></div></div>
+        <div class="bg2-head">
+          <div class="bg2-toprow"><div class="bg2-back"><i class="ti ti-arrow-left"></i></div><div class="bg2-title">Agendar Horário</div></div>
+          <div class="bg2-prof">
+            <div class="bg2-pav">CS</div>
+            <div><div class="bg2-pname">Camila Santos</div><div class="bg2-psub">⭐ 4.9 · 312 atendimentos · Lash Specialist</div></div>
+            <div class="bg2-pbadge">Top ✦</div>
+          </div>
+        </div>
+        <div class="bg2-body">
+          <div class="bg2-lbl">ESCOLHA O DIA</div>
+          <div class="bg2-days">
+            <div class="bg2-day"><div class="dn">TER</div><div class="dd">17</div></div>
+            <div class="bg2-day s"><div class="dn">QUA</div><div class="dd">18</div></div>
+            <div class="bg2-day"><div class="dn">QUI</div><div class="dd">19</div></div>
+            <div class="bg2-day"><div class="dn">SEX</div><div class="dd">20</div></div>
+            <div class="bg2-day"><div class="dn">SÁB</div><div class="dd">21</div></div>
+          </div>
+          <div class="bg2-lbl">HORÁRIOS DISPONÍVEIS</div>
+          <div class="bg2-times">
+            <div class="bg2-t off">09:00</div><div class="bg2-t">10:00</div><div class="bg2-t s">11:00</div>
+            <div class="bg2-t">13:00</div><div class="bg2-t">14:30</div><div class="bg2-t off">16:00</div>
+            <div class="bg2-t">17:00</div><div class="bg2-t off">18:30</div><div class="bg2-t">19:00</div>
+          </div>
+          <div class="bg2-price"><div class="bg2-price-lbl">Lash Volume Russo · 2h</div><div class="bg2-price-val">R$ 180</div></div>
+          <div class="bg2-btn">CONFIRMAR AGENDAMENTO</div>
+        </div>
+        <div class="bg2-nav">
+          <div class="bg1-navi"><i class="ti ti-home"></i><span>Início</span></div>
+          <div class="bg1-navi a"><i class="ti ti-calendar"></i><span>Agenda</span></div>
+          <div class="bg1-navi"><i class="ti ti-search"></i><span>Buscar</span></div>
+          <div class="bg1-navi"><i class="ti ti-user"></i><span>Perfil</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="sd-text rl">
+      <div class="sd-num">02</div>
+      <div class="sd-screen-name">Agendamento — <em>simples e rápido</em></div>
+      <p class="sd-desc">A tela de agendamento mostra o perfil da profissional, os dias disponíveis em destaque e os horários com status visual — livre, ocupado ou indisponível.</p>
+      <div class="sd-features">
+        <div class="sd-feat"><div class="sd-feat-dot"><i class="ti ti-check"></i></div>Calendário semanal com dias disponíveis em destaque</div>
+        <div class="sd-feat"><div class="sd-feat-dot"><i class="ti ti-check"></i></div>Horários com status visual: livre, selecionado ou ocupado</div>
+        <div class="sd-feat"><div class="sd-feat-dot"><i class="ti ti-check"></i></div>Preço exibido antes da confirmação — sem surpresa</div>
+        <div class="sd-feat"><div class="sd-feat-dot"><i class="ti ti-check"></i></div>Confirmação em um toque — direto para o pagamento</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCO 3: IA -->
+  <div class="sd-block" id="ia">
+    <div class="sd-phone-area rl">
+      <div class="ph-big">
+        <div class="ph-big-notch"><div class="ph-big-notch-bar"></div></div>
+        <div class="bg3">
+          <div class="bg3-head">
+            <div class="bg3-badge"><i class="ti ti-wand"></i><span>FUNCIONALIDADE EXCLUSIVA — IA</span></div>
+            <div class="bg3-title">Experimente antes de agendar</div>
+            <div class="bg3-sub">Veja como o cílio vai ficar em você</div>
+          </div>
+          <div class="bg3-cam">
+            <div class="bg3-corner tl"></div><div class="bg3-corner tr"></div>
+            <div class="bg3-corner bl"></div><div class="bg3-corner br"></div>
+            <div class="bg3-face"><i class="ti ti-user-circle"></i></div>
+            <div class="bg3-cam-lbl">Tire uma foto ou carregue da galeria</div>
+          </div>
+          <div class="bg3-body">
+            <div class="bg3-opt-lbl">ESTILO DO CÍLIO</div>
+            <div class="bg3-styles">
+              <div class="bg3-style a"><div class="bg3-style-bar" style="background:var(--rose)"></div><span>Volume Russo</span></div>
+              <div class="bg3-style"><div class="bg3-style-bar" style="background:var(--border)"></div><span>Natural</span></div>
+              <div class="bg3-style"><div class="bg3-style-bar" style="background:var(--border);height:3px"></div><span>Fio a Fio</span></div>
+            </div>
+            <div class="bg3-btn">APLICAR EFEITO IA</div>
+          </div>
+          <div class="bg3-nav">
+            <div class="bg3-navi"><i class="ti ti-home"></i><span>Início</span></div>
+            <div class="bg3-navi"><i class="ti ti-calendar"></i><span>Agenda</span></div>
+            <div class="bg3-navi a"><i class="ti ti-wand"></i><span>Provador IA</span></div>
+            <div class="bg3-navi"><i class="ti ti-user"></i><span>Perfil</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sd-text rr">
+      <div class="sd-badge"><i class="ti ti-wand" style="font-size:12px"></i> EXCLUSIVO GLAM.ME</div>
+      <div class="sd-screen-name">Provador IA — <em>veja antes de decidir</em></div>
+      <p class="sd-desc">A cliente tira uma foto e a IA aplica o estilo de cílio escolhido em tempo real. Volume Russo, Fio a Fio ou Lifting — ela vê exatamente como vai ficar antes de agendar.</p>
+      <div class="sd-features">
+        <div class="sd-feat"><div class="sd-feat-dot"><i class="ti ti-check"></i></div>Processamento em segundos com IA de alta precisão</div>
+        <div class="sd-feat"><div class="sd-feat-dot"><i class="ti ti-check"></i></div>Três estilos disponíveis: Volume Russo, Natural e Fio a Fio</div>
+        <div class="sd-feat"><div class="sd-feat-dot"><i class="ti ti-check"></i></div>Reduz insegurança e aumenta conversão em agendamentos</div>
+        <div class="sd-feat"><div class="sd-feat-dot"><i class="ti ti-check"></i></div>Botão direto: "Gostou? Agendar este estilo agora"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCO 4: PERFIL -->
+  <div class="sd-block rev">
+    <div class="sd-phone-area rr">
+      <div class="ph-big">
+        <div class="ph-big-notch"><div class="ph-big-notch-bar"></div></div>
+        <div class="bg4">
+          <div class="bg4-head">
+            <div class="bg4-av">AP</div>
+            <div class="bg4-name">Ana Paula</div>
+            <div class="bg4-email">anapaula@email.com</div>
+          </div>
+          <div class="bg4-stats">
+            <div class="bg4-stat"><div class="bg4-stat-val">12</div><div class="bg4-stat-lbl">Agendamentos</div></div>
+            <div class="bg4-stat"><div class="bg4-stat-val">4.9</div><div class="bg4-stat-lbl">Avaliação</div></div>
+            <div class="bg4-stat"><div class="bg4-stat-val">650</div><div class="bg4-stat-lbl">Pontos</div></div>
+          </div>
+          <div class="bg4-loyalty">
+            <div class="bg4-ly-tag">PROGRAMA FIDELIDADE</div>
+            <div class="bg4-ly-pts">650 pontos</div>
+            <div class="bg4-ly-sub">Próximo prêmio: 1000 pts — 65% concluído</div>
+            <div class="bg4-ly-bar"><div class="bg4-ly-fill"></div></div>
+          </div>
+          <div class="bg4-menu">
+            <div class="bg4-mi"><div class="bg4-mi-ico"><i class="ti ti-calendar"></i></div><div class="bg4-mi-lbl">Meus agendamentos</div><div class="bg4-mi-arr"><i class="ti ti-chevron-right"></i></div></div>
+            <div class="bg4-mi"><div class="bg4-mi-ico"><i class="ti ti-heart"></i></div><div class="bg4-mi-lbl">Profissionais favoritas</div><div class="bg4-mi-arr"><i class="ti ti-chevron-right"></i></div></div>
+            <div class="bg4-mi"><div class="bg4-mi-ico"><i class="ti ti-star"></i></div><div class="bg4-mi-lbl">Minhas avaliações</div><div class="bg4-mi-arr"><i class="ti ti-chevron-right"></i></div></div>
+            <div class="bg4-mi"><div class="bg4-mi-ico"><i class="ti ti-credit-card"></i></div><div class="bg4-mi-lbl">Formas de pagamento</div><div class="bg4-mi-arr"><i class="ti ti-chevron-right"></i></div></div>
+          </div>
+          <div class="bg4-nav">
+            <div class="bg1-navi"><i class="ti ti-home"></i><span>Início</span></div>
+            <div class="bg1-navi"><i class="ti ti-calendar"></i><span>Agenda</span></div>
+            <div class="bg1-navi"><i class="ti ti-search"></i><span>Buscar</span></div>
+            <div class="bg1-navi a"><i class="ti ti-user"></i><span>Perfil</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sd-text rl">
+      <div class="sd-num">04</div>
+      <div class="sd-screen-name">Perfil — <em>sua história no app</em></div>
+      <p class="sd-desc">O perfil reúne histórico de atendimentos, avaliações, formas de pagamento salvas e o programa de fidelidade com barra de progresso em tempo real.</p>
+      <div class="sd-features">
+        <div class="sd-feat"><div class="sd-feat-dot"><i class="ti ti-check"></i></div>Programa de fidelidade com pontos e prêmios reais</div>
+        <div class="sd-feat"><div class="sd-feat-dot"><i class="ti ti-check"></i></div>Histórico completo de todos os atendimentos</div>
+        <div class="sd-feat"><div class="sd-feat-dot"><i class="ti ti-check"></i></div>Profissionais favoritas salvas para agendar rápido</div>
+        <div class="sd-feat"><div class="sd-feat-dot"><i class="ti ti-check"></i></div>Avaliações que ajudam outras clientes a escolher</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /screens-detail -->
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="cta-ring" style="width:700px;height:700px"></div>
+  <div class="cta-ring" style="width:460px;height:460px"></div>
+  <h2 class="cta-h2 rv">Sua beleza<br/><em>começa aqui.</em></h2>
+  <p class="cta-sub rv d1">Baixe grátis, crie sua conta em menos de um minuto e agende hoje.</p>
+  <div class="cta-btns rv d2">
+    <a href="#" class="btn-p"><i class="ti ti-brand-apple" style="vertical-align:-2px;margin-right:7px"></i>APP STORE</a>
+    <a href="#" class="btn-p"><i class="ti ti-brand-google-play" style="vertical-align:-2px;margin-right:7px"></i>GOOGLE PLAY</a>
+  </div>
+  <p class="cta-detail rv d3">GRATUITO · SEM ANÚNCIOS · SEM TAXAS OCULTAS</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-top">
+    <div>
+      <a href="#" class="foot-logo">glam<span>.me</span></a>
+      <p class="foot-tag">O app de beleza que sua cliente vai amar.</p>
+    </div>
+    <div class="foot-links">
+      <div>
+        <div class="foot-col-lbl">SERVIÇOS</div>
+        <a href="#" class="foot-link">Extensão de Cílios</a>
+        <a href="#" class="foot-link">Design de Sobrancelha</a>
+        <a href="#" class="foot-link">Nail Art & Gel</a>
+        <a href="#" class="foot-link">Lifting de Cílios</a>
+      </div>
+      <div>
+        <div class="foot-col-lbl">APP</div>
+        <a href="#" class="foot-link">Como funciona</a>
+        <a href="#" class="foot-link">Provador IA</a>
+        <a href="#" class="foot-link">Fidelidade</a>
+        <a href="#" class="foot-link">Para profissionais</a>
+      </div>
+      <div>
+        <div class="foot-col-lbl">CONTATO</div>
+        <a href="#" class="foot-link">Instagram</a>
+        <a href="#" class="foot-link">WhatsApp</a>
+        <a href="#" class="foot-link">Suporte</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <div class="foot-copy">© 2025 GLAM.ME · TODOS OS DIREITOS RESERVADOS</div>
+    <div class="foot-social">
+      <a href="#" class="foot-soc"><i class="ti ti-brand-instagram"></i></a>
+      <a href="#" class="foot-soc"><i class="ti ti-brand-tiktok"></i></a>
+      <a href="#" class="foot-soc"><i class="ti ti-brand-whatsapp"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const io=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.08});
+document.querySelectorAll('.rv,.rl,.rr').forEach(el=>io.observe(el));
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
+</script>
+</body>
+</html>
